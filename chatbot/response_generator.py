@@ -3,7 +3,17 @@ from data.diagnosis_data import DIAGNOSIS_DATA
 from data.service_data import SERVICE_DATA
 from data.maintenance_data import MAINTENANCE_DATA
 
-SYMPTOM_OPTIONS = (
+MOTOR_SYMPTOM_OPTIONS = (
+    "- **Mesin**: brebet, susah hidup, tarikan berat, overheat\n"
+    "- **Transmisi**: gigi susah masuk, kopling selip, bunyi\n"
+    "- **Kelistrikan**: lampu mati, aki soak, klakson mati\n"
+    "- **Pendingin**: mesin overheat, radiator bocor\n"
+    "- **Rem**: kurang pakem, bunyi, getaran saat ngerem\n"
+    "- **Suspensi**: guncangan keras, motor oleng, shock bocor\n"
+    "- **Ban**: bocor, aus gak rata, tekanan kurang"
+)
+
+MOBIL_SYMPTOM_OPTIONS = (
     "- **Mesin**: brebet, susah hidup, tarikan berat, overheat\n"
     "- **Transmisi**: gigi susah masuk, kopling selip, bunyi\n"
     "- **Kelistrikan**: lampu mati, aki soak, klakson mati\n"
@@ -28,12 +38,12 @@ STATE_RESPONSES: dict[State, str] = {
     ),
     State.SELECT_MOTOR_SYMPTOM: (
         "Motor ya. Sekarang cerita, gejala apa yang kamu rasakan?\n\n"
-        + SYMPTOM_OPTIONS + "\n\n"
+        + MOTOR_SYMPTOM_OPTIONS + "\n\n"
         "Ketik gejala yang kamu alami, ya."
     ),
     State.SELECT_MOBIL_SYMPTOM: (
         "Mobil ya. Coba cerita, gejala apa yang kamu rasakan?\n\n"
-        + SYMPTOM_OPTIONS + "\n\n"
+        + MOBIL_SYMPTOM_OPTIONS + "\n\n"
         "Ketik gejala yang kamu alami, ya."
     ),
     State.MOTOR_ENGINE: (
@@ -46,7 +56,8 @@ STATE_RESPONSES: dict[State, str] = {
         "Lampu indikator di dashboard nyala atau mati semua? (ya/tidak)"
     ),
     State.MOTOR_ELECTRICAL: (
-        "Apa lampu atau komponen listrik lainnya mati total? (ya/tidak)"
+        "Apakah yang bermasalah hanya satu lampu/komponen saja, "
+        "atau beberapa komponen listrik mati sekaligus? (ya = satu saja / tidak = beberapa sekaligus)"
     ),
     State.MOTOR_BRAKE: (
         "Apakah rem terasa kurang pakem atau bunyi saat dipakai? (ya/tidak)"
@@ -61,10 +72,6 @@ STATE_RESPONSES: dict[State, str] = {
     State.MOTOR_SUSPENSI: (
         "Apa kendaraan terasa oleng, keras saat lewat jalan tidak rata, "
         "atau shockbreaker bunyi? (ya/tidak)"
-    ),
-    State.MOTOR_PENDINGIN: (
-        "Apa indikator suhu naik, radiator bocor, "
-        "atau AC tidak dingin? (ya/tidak)"
     ),
     State.SERVICE_START: (
         "Mau cek jadwal servis untuk motor atau mobil?"
@@ -88,23 +95,15 @@ STATE_RESPONSES: dict[State, str] = {
     State.MAINTENANCE_VEHICLE: (
         "Mau tips perawatan untuk motor atau mobil?"
     ),
-    State.MAINTENANCE_START: (
-        "Mau tips perawatan bagian apa?\n\n"
-        "- **Mesin**: biar awet dan bertenaga\n"
-        "- **Oli**: pilih dan ganti yang tepat\n"
-        "- **Aki**: rawat biar gak tekor\n"
-        "- **Transmisi**: jaga kopling dan gigi\n"
-        "- **Rem**: safety first\n"
-        "- **Suspensi**: handling tetap stabil\n"
-        "- **Pendingin**: AC dan radiator\n"
-        "- **Ban**: biar gak bocor terus\n\n"
-        "Ketik pilihannya, ya."
-    ),
+
 }
 
 
-def get_diagnosis_result(state: State) -> str:
+def get_diagnosis_result(state: State, vehicle: str = "motor") -> str:
     key = state.name
+    # Pendingin mobil → fokus AC, motor → fokus overheat/radiator
+    if key == "RESULT_PENDINGIN" and vehicle == "mobil":
+        key = "RESULT_PENDINGIN_AC"
     data = DIAGNOSIS_DATA.get(key)
     if not data:
         return "Oke, data diagnosisnya udah tercatat. Semoga cepet beres, ya."
@@ -149,7 +148,11 @@ def get_maintenance_result(state: State, vehicle: str = "motor") -> str:
     topic = topic_map.get(state)
     if not topic:
         return "Tipsnya gak ditemukan. Coba pilih topik lain."
-    items = MAINTENANCE_DATA.get(topic, [])
+
+    # Pendingin mobil pakai data yang include tips AC
+    data_key = "pendingin_mobil" if topic == "pendingin" and vehicle == "mobil" else topic
+
+    items = MAINTENANCE_DATA.get(data_key, [])
     if not items:
         return f"Belum ada tips buat {topic}, nanti kita update."
     items_str = "\n".join(f"- {item}" for item in items)
@@ -194,12 +197,38 @@ ASK_AGAIN = "\n\n---\nAda lagi yang bisa aku bantu? Ketik **menu** atau **selesa
 
 class ResponseGenerator:
     def generate(self, state: State, vehicle: str = "motor") -> str:
+        if state == State.MAINTENANCE_START:
+            pendingin = "AC dan radiator" if vehicle == "mobil" else "radiator dan sistem pendingin"
+            return (
+                "Mau tips perawatan bagian apa?\n\n"
+                "- **Mesin**: biar awet dan bertenaga\n"
+                "- **Oli**: pilih dan ganti yang tepat\n"
+                "- **Aki**: rawat biar gak tekor\n"
+                "- **Transmisi**: jaga kopling dan gigi\n"
+                "- **Rem**: safety first\n"
+                "- **Suspensi**: handling tetap stabil\n"
+                f"- **Pendingin**: {pendingin}\n"
+                "- **Ban**: biar gak bocor terus\n\n"
+                "Ketik pilihannya, ya."
+            )
+
+        if state == State.MOTOR_PENDINGIN:
+            if vehicle == "mobil":
+                return (
+                    "Apa yang kamu rasakan: mesin cepat panas, indikator suhu naik, "
+                    "radiator bocor, atau AC tidak dingin? (ya/tidak)"
+                )
+            return (
+                "Apa yang kamu rasakan: mesin cepat panas, indikator suhu naik, "
+                "atau radiator bocor? (ya/tidak)"
+            )
+
         base = STATE_RESPONSES.get(state)
         if base:
             return base
 
         if state in DIAGNOSIS_RESULT_STATES:
-            return get_diagnosis_result(state) + ASK_AGAIN
+            return get_diagnosis_result(state, vehicle) + ASK_AGAIN
 
         if state in SERVICE_RESULT_STATES:
             return get_service_result(state, vehicle) + ASK_AGAIN

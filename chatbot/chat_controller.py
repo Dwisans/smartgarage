@@ -75,14 +75,40 @@ class ChatController:
         },
     }
 
+    HARGA_KEYWORDS = {
+        "harga", "biaya", "tarif", "ongkos", "bayar", "pembayaran",
+        "berapa harga", "berapa biaya", "berapa tarif", "estimasi harga",
+        "estimasi biaya", "kira-kira berapa", "mahal", "murah",
+        "nego", "promo", "diskon", "paket servis",
+    }
+
     def process_input(self, session: SessionManager, user_input: str) -> str:
         session.add_message("user", user_input)
+
+        # ── Deteksi pertanyaan harga sebelum apapun ──
+        text_lower = user_input.lower().strip()
+        if any(kw in text_lower for kw in self.HARGA_KEYWORDS):
+            response = (
+                "Untuk informasi harga dan biaya servis, "
+                "silakan hubungi admin kami langsung ya 😊\n\n"
+                "📞 **WhatsApp / Telepon:**\n"
+                "**0812-3456-7890**\n\n"
+                "Kami siap membantu dan memberikan estimasi biaya "
+                "sesuai kondisi kendaraanmu."
+            )
+            session.add_message("bot", response)
+            return response
+
         event = self.matcher.match(user_input)
         current = session.fsm.get_current_state()
 
-        # ── START -> WELCOME ──
-        if event == Event.START_CHAT and current == State.START:
-            session.fsm.transition(event)
+        # ── START_CHAT -> WELCOME (reset if already in a flow) ──
+        if event == Event.START_CHAT:
+            if current != State.START:
+                session.fsm.reset()
+                session.fsm.transition(Event.START_CHAT)
+            else:
+                session.fsm.transition(event)
             response = self.generator.generate(session.fsm.get_current_state())
             session.add_message("bot", response)
             return response
