@@ -66,16 +66,21 @@ DIAGNOSIS_DATA: dict[str, dict[str, str]] = {
         "title": "Masalah Kelistrikan",
         "solution": (
             "Kemungkinan ada **gangguan pada sistem kelistrikan**.\n\n"
-            "Penyebab umum:\n"
-            "\u2022 Sekring putus akibat beban lebih\n"
+            "Cek dua kemungkinan utama:\n\n"
+            "**1. Lampu / komponen mati sebelah atau satu saja:**\n"
+            "\u2022 Bohlam/LED putus \u2014 ganti bohlam yang sesuai spesifikasi\n"
+            "\u2022 Sekring khusus lampu putus \u2014 ganti dengan ampere yang sama\n"
+            "\u2022 Soket lampu longgar atau berkarat \u2014 bersihkan dan pasang ulang\n\n"
+            "**2. Beberapa komponen listrik mati sekaligus:**\n"
+            "\u2022 Sekring utama putus akibat beban lebih\n"
             "\u2022 Kabel konsleting atau isolasi terbuka\n"
-            "\u2022 Soket atau konektor longgar/berkarat\n"
+            "\u2022 Aki lemah sehingga tidak mampu mensuplai daya\n"
             "\u2022 Dinamo/alternator tidak mengisi dengan benar\n\n"
             "Langkah:\n"
-            "1. Periksa sekring yang putus, ganti dengan ampere sesuai\n"
-            "2. Cek konektor kabel \u2014 pastikan tidak ada yang longgar\n"
-            "3. Jika lampu redup, cek tegangan aki dan sistem pengisian\n"
-            "4. Untuk masalah spion/power window, cek motor penggeraknya"
+            "1. Identifikasi dulu: hanya satu lampu/komponen atau banyak?\n"
+            "2. Jika satu lampu mati \u2014 cek bohlam dan sekring lampu tersebut\n"
+            "3. Jika banyak yang mati \u2014 cek sekring utama dan kondisi aki\n"
+            "4. Jika masih bermasalah, bawa ke bengkel kelistrikan"
         ),
     },
     "RESULT_BRAKE": {
@@ -152,22 +157,37 @@ DIAGNOSIS_DATA: dict[str, dict[str, str]] = {
         ),
     },
     "RESULT_PENDINGIN": {
-        "title": "Masalah Sistem Pendingin atau AC",
+        "title": "Masalah Sistem Pendingin — Overheat / Radiator",
         "solution": (
-            "Kemungkinan ada masalah pada **sistem pendingin mesin atau AC**.\n\n"
+            "Kemungkinan ada masalah pada **sistem pendingin mesin**.\n\n"
             "Penyebab umum:\n"
             "\u2022 Air radiator kurang atau bocor\n"
-            "\u2022 Kipas radiator mati atau tidak berfungsi\n"
+            "\u2022 Kipas radiator tidak berfungsi\n"
             "\u2022 Thermostat macet (tertutup terus)\n"
-            "\u2022 Freon AC habis atau bocor (untuk AC mobil)\n"
             "\u2022 Water pump rusak sehingga sirkulasi air terganggu\n\n"
             "Langkah:\n"
-            "1. Cek level air radiator \u2014 jangan buka radiator dalam keadaan panas\n"
-            "2. Periksa apakah kipas radiator menyala saat mesin panas\n"
-            "3. Jika indikator suhu naik, segera matikan mesin dan biarkan dingin\n"
-            "4. Untuk AC tidak dingin, coba cek freon di bengkel AC\n\n"
-            "Estimasi biaya: Rp 50.000 (isi air radiator) \u2013 "
-            "Rp 500.000 (service AC)"
+            "1. Cek level air radiator \u2014 jangan buka tutup radiator saat mesin masih panas\n"
+            "2. Periksa apakah kipas radiator menyala saat mesin mulai panas\n"
+            "3. Jika indikator suhu naik ke zona merah, segera menepi dan matikan mesin\n"
+            "4. Tunggu dingin lalu cek apakah ada kebocoran di selang radiator\n\n"
+            "Estimasi biaya: Rp 50.000 (isi air radiator) \u2013 Rp 500.000 (ganti thermostat/water pump)"
+        ),
+    },
+    "RESULT_PENDINGIN_AC": {
+        "title": "Masalah AC Mobil",
+        "solution": (
+            "Kemungkinan ada masalah pada **sistem AC mobil**.\n\n"
+            "Penyebab umum:\n"
+            "\u2022 Freon AC habis atau bocor\n"
+            "\u2022 Kompresor AC bermasalah\n"
+            "\u2022 Filter kabin kotor sehingga udara tidak maksimal\n"
+            "\u2022 Kondensor AC kotor atau kipas tidak bekerja\n\n"
+            "Langkah:\n"
+            "1. Jika AC menyala tapi hembusan lemah \u2014 kemungkinan filter kabin kotor, ganti filter\n"
+            "2. Jika AC menyala tapi tidak dingin \u2014 kemungkinan freon habis\n"
+            "3. Jika ada bunyi kasar saat AC dinyalakan \u2014 kompresor bermasalah\n"
+            "4. Bawa ke bengkel AC untuk cek tekanan freon dan kondisi kompresor\n\n"
+            "Estimasi biaya: Rp 150.000 (isi freon) \u2013 Rp 1.500.000 (ganti kompresor)"
         ),
     },
 }

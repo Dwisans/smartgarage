@@ -72,8 +72,17 @@ MAINTENANCE_DATA: dict[str, list[str]] = {
         "Jika indikator suhu naik ke zona merah, segera menepi dan matikan mesin",
         "Kipas radiator harus menyala otomatis saat mesin mencapai suhu kerja",
         "Ganti coolant radiator setiap 2 tahun atau 40.000 km agar tidak mengendap",
+        "Periksa selang radiator secara berkala \u2014 pastikan tidak retak atau bocor",
+        "Jangan biarkan mesin overheat terus-menerus karena bisa merusak head gasket",
+    ],
+    "pendingin_mobil": [
+        "Cek air radiator setiap minggu \u2014 jangan pakai air kran, pakai coolant khusus",
+        "Jangan pernah membuka tutup radiator saat mesin panas \u2014 berbahaya terkena semburan uap",
+        "Jika indikator suhu naik ke zona merah, segera menepi dan matikan mesin",
+        "Ganti coolant radiator setiap 2 tahun atau 40.000 km agar tidak mengendap",
         "AC mobil tidak dingin biasanya karena freon bocor atau kompresor bermasalah",
         "Nyalakan AC minimal seminggu sekali selama 15 menit agar kompresor tetap bagus",
+        "Ganti filter kabin AC setiap 15.000 km agar udara tetap bersih dan sejuk",
         "Jika ada genangan air di bawah mobil (sekitar dashboard), kemungkinan AC bocor",
     ],
 }
