@@ -119,7 +119,7 @@ p, li, .stMarkdown { color:var(--text) !important; }
     color:#fff !important; letter-spacing:-.6px;
     line-height:1.2 !important; margin-bottom:14px !important;
 }
-.hero-sub { color:rgba(255,255,255,.78) !important; font-size:15px; line-height:1.7; max-width:640px; margin:0 auto 24px; text-align:center !important; }
+.hero-sub { color:rgba(255,255,255,.85) !important; font-size:15px; line-height:1.8; margin:0 auto 24px; text-align:center !important; }
 .hero-chips { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
 .hero-chip {
     display:inline-flex; align-items:center; gap:6px;
@@ -207,8 +207,8 @@ p, li, .stMarkdown { color:var(--text) !important; }
 .stChatInput > div:focus-within {
     border-color:var(--accent) !important; box-shadow:0 0 0 3px rgba(37,99,235,.12) !important;
 }
-.stChatInput textarea { color:var(--text) !important; caret-color:var(--accent) !important; }
-.stChatInput textarea::placeholder { color:var(--muted2) !important; }
+.stChatInput textarea { background:#fff !important; color:var(--text) !important; caret-color:var(--accent) !important; }
+.stChatInput textarea::placeholder { color:#94a3b8 !important; }
 
 /* STYLE KHAS HEADER CHAT TERPUSAT */
 .chat-top-bar {
@@ -299,8 +299,8 @@ if st.session_state.page == "home":
 <div class="hero">
 <div class="hero-badge">⚙ FSM-Powered Engine</div>
 <h1>Bengkel Pintar untuk<br>Kendaraanmu</h1>
-<p class="hero-sub">Diagnosa kerusakan, jadwal servis berkala, dan tips perawatan —
-diproses sistematis dengan Finite State Machine tanpa tebak-tebakan.</p>
+<p class="hero-sub">Diagnosa kerusakan, jadwal servis berkala, dan tips perawatan<br>
+— diproses sistematis dengan Finite State Machine tanpa tebak-tebakan.</p>
 <div class="hero-chips">
   <span class="hero-chip">🔍 Diagnosa Otomatis</span>
   <span class="hero-chip">🛠️ Servis Berkala</span>
