@@ -186,6 +186,7 @@ p, li, .stMarkdown { color:var(--text) !important; }
     box-shadow:0 4px 14px rgba(37,99,235,.35) !important;
 }
 .stButton button[kind="primary"]:hover {
+    color:#fff !important;
     background:linear-gradient(135deg,var(--blue-800),var(--blue-600)) !important;
     box-shadow:0 6px 20px rgba(37,99,235,.45) !important;
 }
@@ -299,8 +300,8 @@ if st.session_state.page == "home":
 <div class="hero">
 <div class="hero-badge">⚙ FSM-Powered Engine</div>
 <h1>Bengkel Pintar untuk<br>Kendaraanmu</h1>
-<p class="hero-sub">Diagnosa kerusakan, jadwal servis berkala, dan tips perawatan<br>
-— diproses sistematis dengan Finite State Machine tanpa tebak-tebakan.</p>
+<p class="hero-sub">🔍 Diagnosa cerdas · 🛠️ Jadwal servis tepat · 💡 Tips terpercaya<br>
+Semua diproses secara sistematis melalui <strong>Finite State Machine</strong> yang terstruktur dan terverifikasi.</p>
 <div class="hero-chips">
   <span class="hero-chip">🔍 Diagnosa Otomatis</span>
   <span class="hero-chip">🛠️ Servis Berkala</span>
@@ -320,9 +321,9 @@ if st.session_state.page == "home":
 
     st.markdown("""
 <div class="stat-row">
-<div class="stat-card"><div class="stat-val">30</div><div class="stat-lbl">State FSM</div></div>
-<div class="stat-card"><div class="stat-val">21</div><div class="stat-lbl">Events</div></div>
-<div class="stat-card"><div class="stat-val">48+</div><div class="stat-lbl">Transitions</div></div>
+<div class="stat-card"><div class="stat-val">44</div><div class="stat-lbl">State FSM</div></div>
+<div class="stat-card"><div class="stat-val">25</div><div class="stat-lbl">Events</div></div>
+<div class="stat-card"><div class="stat-val">131</div><div class="stat-lbl">Transitions</div></div>
 <div class="stat-card"><div class="stat-val">3</div><div class="stat-lbl">Layanan Utama</div></div>
 </div>
 """, unsafe_allow_html=True)
@@ -367,9 +368,9 @@ if st.session_state.page == "home":
 <div class="fn-col-title">Tentang</div>
 <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:16px;">SmartGarage menggunakan FSM untuk memandu diagnosa kendaraan secara logis dan terurut.</div>
 <div class="fn-stat-grid">
-<div class="fn-stat-box"><div class="fn-stat-val">30</div><div class="fn-stat-lbl">State FSM</div></div>
-<div class="fn-stat-box"><div class="fn-stat-val">21</div><div class="fn-stat-lbl">Events</div></div>
-<div class="fn-stat-box"><div class="fn-stat-val">48+</div><div class="fn-stat-lbl">Transitions</div></div>
+<div class="fn-stat-box"><div class="fn-stat-val">44</div><div class="fn-stat-lbl">State FSM</div></div>
+<div class="fn-stat-box"><div class="fn-stat-val">25</div><div class="fn-stat-lbl">Events</div></div>
+<div class="fn-stat-box"><div class="fn-stat-val">131</div><div class="fn-stat-lbl">Transitions</div></div>
 <div class="fn-stat-box"><div class="fn-stat-val">3</div><div class="fn-stat-lbl">Layanan</div></div>
 </div>
 </div>
